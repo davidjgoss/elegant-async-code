@@ -1,0 +1,37 @@
+[
+    {
+        "id": 11111,
+        "unread": true,
+        "from": "Barry Scott",
+        "subject": "Really powerful cleaning products!",
+        "snippet": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec laoreet massa tellus, in egestas ligula bibendum et. Morbi consequat ipsum a nisi posuere suscipit."
+    },
+    {
+        "id": 1111,
+        "unread": true,
+        "from": "Trello",
+        "subject": "Better Boards",
+        "snippet": "What's new in Trello? I'm glad you asked. 10 New Tidbits for Better Boards"
+    },
+    {
+        "id": 111,
+        "unread": false,
+        "from": "Louis Houghton",
+        "subject": "RE: bower nexus resolver",
+        "snippet": "There may also be an issue with the we deal with transitive dependencies. In Angular Translate it declares its"
+    },
+    {
+        "id": 11,
+        "unread": false,
+        "from": "Josh Manders",
+        "subject": "Re: [eslint] Investigate switching away from GitHub (#5205)",
+        "snippet": "@brianjking indeed, just checked on my iPhone 6, it don't work. But agreed. Great start."
+    },
+    {
+        "id": 1,
+        "unread": false,
+        "from": "Mitin Parmar",
+        "subject": "Notes from Conditioning Session",
+        "snippet": "Couple of items I noted; 1) Add the technical notes to the existing Non-functional section to include the OWASP guidelines where applicable"
+    }
+]
