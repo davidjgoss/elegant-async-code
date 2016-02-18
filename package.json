@@ -1,0 +1,26 @@
+{
+  "name": "elegant-async-code",
+  "version": "0.0.0",
+  "description": "Example code for my \"Elegant async code with ES2015 Promises\" talk",
+  "scripts": {
+    "install": "bower install && gulp dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/davidjgoss/elegant-async-code.git"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/davidjgoss/elegant-async-code/issues"
+  },
+  "homepage": "https://github.com/davidjgoss/elegant-async-code",
+  "devDependencies": {
+    "babel-preset-react": "^6.5.0",
+    "bower": "^1.7.7",
+    "gulp": "^3.9.1",
+    "gulp-babel": "^6.1.2",
+    "gulp-cli": "^1.2.1",
+    "gulp-sass": "^2.2.0",
+    "gulp-sourcemaps": "^1.6.0"
+  }
+}

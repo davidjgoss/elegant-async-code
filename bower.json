@@ -1,0 +1,8 @@
+{
+  "name": "elegant-async-code",
+  "private": true,
+  "dependencies": {
+    "react": "^0.14.7",
+    "bootstrap": "^3.3.6"
+  }
+}
