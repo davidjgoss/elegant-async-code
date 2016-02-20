@@ -16,6 +16,7 @@
             return response.text();
         }).then(function(body) {
             return {
+                "id": message.id,
                 "from": message.from,
                 "subject": message.subject,
                 "body": body
@@ -35,15 +36,20 @@
 
     var MessageItem = React.createClass({
         render: function() {
+            var itemClass = "list-group-item";
+            if (this.props.activeId === this.props.message.id) {
+                itemClass += " active";
+            }
             var clickHandler = function(e) {
                 e.preventDefault();
-                this.props.openMessage(this.props.data);
+                this.props.openMessage(this.props.message);
             }.bind(this);
+
             return (
-                <a href="#" onClick={clickHandler} className="list-group-item">
-                    <h3 className="list-group-item-heading"><strong>{this.props.data.from}</strong></h3>
-                    <h4>{this.props.data.subject}</h4>
-                    <p>{this.props.data.snippet}</p>
+                <a href="#" onClick={clickHandler} className={itemClass}>
+                    <h3 className="list-group-item-heading"><strong>{this.props.message.from}</strong></h3>
+                    <h4>{this.props.message.subject}</h4>
+                    <p>{this.props.message.snippet}</p>
                 </a>
             );
         }
@@ -51,12 +57,14 @@
 
     var MessageList = React.createClass({
         render: function() {
-            var openMessage = this.props.openMessage;
-            var messageNodes = this.props.data.map(function(message) {
+            var activeId = this.props.activeId,
+                openMessage = this.props.openMessage,
+                messageNodes = this.props.list.map(function(message) {
                 return (
-                    <MessageItem key={message.id} data={message} openMessage={openMessage} />
+                    <MessageItem key={message.id} message={message} activeId={activeId} openMessage={openMessage} />
                 );
             });
+            
             return (
                 <div className="eac-list list-group">
                     {messageNodes}
@@ -67,13 +75,13 @@
 
     var MessageView = React.createClass({
         rawMarkup: function() {
-            return {__html: this.props.data.body};
+            return {__html: this.props.message.body};
         },
         render: function() {
             return (
                 <div>
-                    <h2>{this.props.data.from}</h2>
-                    <h3>{this.props.data.subject}</h3>
+                    <h2>{this.props.message.from}</h2>
+                    <h3>{this.props.message.subject}</h3>
                     <div dangerouslySetInnerHTML={this.rawMarkup()} />
                 </div>
             );
@@ -99,7 +107,10 @@
                 .then(this.updateView);
         },
         updateView: function(message) {
-            this.setState({view: message});
+            this.setState({
+                activeId: message.id,
+                view: message
+            });
         },
         refreshMessages: function() {
             return loadMessageList()
@@ -112,6 +123,7 @@
         },
         getInitialState: function() {
             return {
+                activeId: 0,
                 unread: 0,
                 list: [],
                 view: {}
@@ -124,10 +136,10 @@
                     <Header count={this.state.unread} />
                     <div className="row">
                         <div className="col-xs-12 col-sm-5 col-md-4">
-                            <MessageList data={this.state.list} openMessage={openMessage} />
+                            <MessageList list={this.state.list} activeId={this.state.activeId} openMessage={openMessage} />
                         </div>
                         <div className="col-xs-12 col-sm-7 col-md-8">
-                            <MessageView data={this.state.view} />
+                            <MessageView message={this.state.view} />
                         </div>
                     </div>
                 </div>
