@@ -1,4 +1,22 @@
 (function() {
+    function loadMessages() {
+        return fetch("data/messages.json").then(function(response) {
+            return response.json();
+        });
+    }
+
+    function countUnread(messages) {
+        return messages.filter(function(message) {
+            return message.unread;
+        }).length;
+    }
+
+    function loadBody() {
+        return fetch("data/body.html").then(function(response) {
+            return response.text();
+        });
+    }
+
     var Message = React.createClass({
         render: function() {
             return (
@@ -26,24 +44,27 @@
         }
     });
 
-    function loadMessages() {
-        return fetch("data/messages.json").then(function(response) {
-            return response.json();
-        });
-    }
+    var MessageBody = React.createClass({
+        rawMarkup: function() {
+            return {__html: this.props.data.body};
+        },
+        render: function() {
+            return (
+                <div>
+                    <h2>{this.props.data.from}</h2>
+                    <h3>{this.props.data.subject}</h3>
+                    <div dangerouslySetInnerHTML={this.rawMarkup()} />
+                </div>
+            );
+        }
+    });
 
-    function populateMessages(messages) {
+    function populateList(messages) {
         ReactDOM.render(
             <MessageList data={messages} />,
             document.querySelector("#list-container")
         );
         return messages;
-    }
-
-    function countUnread(messages) {
-        return messages.filter(function(message) {
-            return message.unread;
-        }).length;
     }
 
     function populateCounts(messages) {
@@ -63,10 +84,32 @@
         return messages;
     }
 
+    function populateMessage(msg) {
+        ReactDOM.render(
+            <MessageBody data={msg} />,
+            document.querySelector("#view-container")
+        );
+    }
+
+    function showMessage(msg) {
+        return loadBody(msg.id).then(function(body) {
+            return {
+                "from": msg.from,
+                "subject": msg.subject,
+                "body": body
+            };
+        }).then(populateMessage);
+    }
+
+    function showFirstMessage(messages) {
+        return showMessage(messages[0]);
+    }
+
     function refreshMessages() {
         return loadMessages()
             .then(populateCounts)
-            .then(populateMessages);
+            .then(populateList)
+            .then(showFirstMessage);
     }
 
     refreshMessages();
