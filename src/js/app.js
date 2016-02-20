@@ -29,7 +29,10 @@
 
     var MessageItem = React.createClass({
         render: function() {
-            var itemClass = "list-group-item";
+            var itemClass = "list-group-item eac-list__item";
+            if (this.props.message.unread) {
+                itemClass += " eac-list__item--unread";
+            }
             if (this.props.activeId === this.props.message.id) {
                 itemClass += " active";
             }
@@ -40,9 +43,9 @@
 
             return (
                 <a href="#" onClick={clickHandler} className={itemClass}>
-                    <h3 className="list-group-item-heading"><strong>{this.props.message.from}</strong></h3>
-                    <h4>{this.props.message.subject}</h4>
-                    <p>{this.props.message.snippet}</p>
+                    <h4 className="eac-list__from list-group-item-heading">{this.props.message.from}</h4>
+                    <h5 className="eac-list__subject">{this.props.message.subject}</h5>
+                    <p className="eac-list__snippet">{this.props.message.snippet}</p>
                 </a>
             );
         }
@@ -59,7 +62,7 @@
             });
 
             return (
-                <div className="eac-list list-group">
+                <div className="list-group eac-list">
                     {messageNodes}
                 </div>
             );
@@ -72,10 +75,10 @@
         },
         render: function() {
             return (
-                <div>
-                    <h2>{this.props.message.from}</h2>
-                    <h3>{this.props.message.subject}</h3>
-                    <div dangerouslySetInnerHTML={this.rawMarkup()} />
+                <div className="eac-view">
+                    <h2 className="eac-view__from">{this.props.message.from}</h2>
+                    <h4 className="eac-view__subject">{this.props.message.subject}</h4>
+                    <div className="eac-view__body" dangerouslySetInnerHTML={this.rawMarkup()} />
                 </div>
             );
         }

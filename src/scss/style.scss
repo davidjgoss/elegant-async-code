@@ -1,7 +1,55 @@
+$subject-color: #888;
+$unread-color: #12aace;
+
 html {
     font-size: 14px;
 }
 
 body {
     padding: 0 2rem;
+}
+
+.eac-list {}
+
+.eac-list__from {
+    font-weight: bold;
+    margin: 0;
+}
+
+.eac-list__subject {
+    color: $subject-color;
+    font-weight: bold;
+    margin: 0.25rem 0;
+
+    .eac-list__item--unread &::before {
+        content: "\2022";
+        display: inline-block;
+        color: $unread-color;
+        margin-right: 0.666rem;
+        transform-origin: 0 50%;
+        transform: scale(2);
+    }
+
+    .eac-list__item.active & {
+        color: #fff;
+    }
+}
+
+.eac-list__snippet {
+    max-height: 40px;
+    margin: 0;
+    overflow-y: hidden;
+}
+
+.eac-view {}
+
+.eac-view__from {
+    font-weight: bold;
+    margin: 0;
+}
+
+.eac-view__subject {
+    font-weight: bold;
+    color: $subject-color;
+    margin: 0 0 1.5rem 0;
 }
