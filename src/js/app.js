@@ -19,8 +19,12 @@
 
     var Message = React.createClass({
         render: function() {
+            var clickHandler = function(e) {
+                e.preventDefault();
+                showMessage(this.props);
+            }.bind(this);
             return (
-                <a href="#" className="list-group-item">
+                <a href="#" onClick={clickHandler} className="list-group-item">
                     <h3 className="list-group-item-heading"><strong>{this.props.from}</strong></h3>
                     <h4>{this.props.subject}</h4>
                     <p>{this.props.snippet}</p>
@@ -33,7 +37,7 @@
         render: function() {
             var messageNodes = this.props.data.map(function(message) {
                 return (
-                    <Message key={message.id} from={message.from} subject={message.subject} snippet={message.snippet} />
+                    <Message key={message.id} id={message.id} from={message.from} subject={message.subject} snippet={message.snippet} />
                 );
             });
             return (
