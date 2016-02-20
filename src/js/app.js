@@ -11,16 +11,9 @@
         }).length;
     }
 
-    function loadMessageBody(message) {
-        return fetch("data/body.html").then(function(response) {
-            return response.text();
-        }).then(function(body) {
-            return {
-                "id": message.id,
-                "from": message.from,
-                "subject": message.subject,
-                "body": body
-            };
+    function loadMessageBody(messageId) {
+        return fetch("data/messages/" + messageId + ".json").then(function(response) {
+            return response.json();
         });
     }
 
@@ -42,7 +35,7 @@
             }
             var clickHandler = function(e) {
                 e.preventDefault();
-                this.props.openMessage(this.props.message);
+                this.props.openMessage(this.props.message.id);
             }.bind(this);
 
             return (
@@ -64,7 +57,7 @@
                     <MessageItem key={message.id} message={message} activeId={activeId} openMessage={openMessage} />
                 );
             });
-            
+
             return (
                 <div className="eac-list list-group">
                     {messageNodes}
@@ -100,10 +93,10 @@
             return messages;
         },
         openFirstMessage: function(messages) {
-            return this.openMessage(messages[0]);
+            return this.openMessage(messages[0].id);
         },
-        openMessage: function(message) {
-            return loadMessageBody(message)
+        openMessage: function(messageId) {
+            return loadMessageBody(messageId)
                 .then(this.updateView);
         },
         updateView: function(message) {
