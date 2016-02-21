@@ -23,7 +23,9 @@ body {
 .eac-list__subject {
     color: $subject-color;
     font-weight: bold;
+    max-height: 14px;
     margin: 0.25rem 0;
+    overflow-y: hidden;
 
     .eac-list__item--unread &::before {
         content: "\2022";
