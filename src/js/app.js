@@ -1,6 +1,16 @@
 (function() {
+    function handleListError() {
+        window.alert("Sorry. there was an error loading the list of messages");
+    }
+
+    function handleViewError() {
+        window.alert("Sorry. there was an error loading an individual message");
+    }
+
     function loadMessageList() {
+        // we return the promise from the fetch call...
         return fetch("data/messages.json").then(function(response) {
+            // ...which ends up resolving to the list of messages
             return response.json();
         });
     }
@@ -117,7 +127,8 @@
         },
         openMessage: function(messageId) {
             return loadMessageBody(messageId)
-                .then(this.updateView);
+                .then(this.updateView)
+                .catch(handleViewError);
         },
         updateView: function(message) {
             this.setState({
@@ -126,10 +137,11 @@
             });
         },
         refreshMessages: function() {
-            return loadMessageList()
-                .then(this.updateCount)
-                .then(this.updateList)
-                .then(this.openFirstMessage);
+            return loadMessageList() // promise resolving to the list of messages
+                .then(this.updateCount) // updates UI and passes list straight through
+                .then(this.updateList) // updates UI and passes list straight through
+                .then(this.openFirstMessage) // opens first message from the list
+                .catch(handleListError);
         },
         componentDidMount: function() {
             this.refreshMessages();
