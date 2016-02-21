@@ -21,7 +21,14 @@
         render: function() {
             return (
                 <header className="page-header">
-                    <h1>Inbox <small>{this.props.count} unread</small></h1>
+                    <div className="row">
+                        <div className="col-xs-6">
+                            <h1 className="eac-title">Inbox <small>{this.props.count} unread</small></h1>
+                        </div>
+                        <div className="col-xs-6 text-right">
+                            <button className="btn btn-primary"><i className="glyphicon glyphicon-edit" /> Compose</button>
+                        </div>
+                    </div>
                 </header>
             );
         }
@@ -76,8 +83,18 @@
         render: function() {
             return (
                 <div className="eac-view">
-                    <h2 className="eac-view__from">{this.props.message.from}</h2>
-                    <h4 className="eac-view__subject">{this.props.message.subject}</h4>
+                    <div className="row">
+                        <div className="col-xs-9">
+                            <h2 className="eac-view__from">{this.props.message.from}</h2>
+                            <h4 className="eac-view__subject">{this.props.message.subject}</h4>
+                        </div>
+                        <div className="col-xs-3 text-right">
+                            <button className="btn btn-link"><i className="glyphicon glyphicon-print" /></button>
+                            <button className="btn btn-link"><i className="glyphicon glyphicon-share-alt" /></button>
+                            <button className="btn btn-link"><i className="glyphicon glyphicon-folder-close" /></button>
+                            <button className="btn btn-link"><i className="glyphicon glyphicon-trash" /></button>
+                        </div>
+                    </div>
                     <div className="eac-view__body" dangerouslySetInnerHTML={this.rawMarkup()} />
                 </div>
             );
